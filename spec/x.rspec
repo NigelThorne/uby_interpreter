@@ -1,0 +1,41 @@
+# require "spec_helper"
+
+
+# class Expression
+#   def initialize(str)
+#     @str = str    
+#   end
+
+#   def to_ruby
+#     @str
+#   end
+# end
+
+# class RubyParser
+#   def self.from_ruby(str)
+#       Expression.new(str)
+#   end
+# end
+
+# class Ast
+#   def initialize
+#     @operations = []
+#   end
+#   def append(ast)
+#     @operations << ast
+#     self
+#   end
+#   def to_ruby
+#     @operations.map(&:to_ruby).join("\n")
+#   end
+# end
+
+# describe Ast do
+#   it "#append adds a new operation to a block" do
+#     block = Ast.new
+#     block.append(RubyParser.from_ruby("1"))
+#     expect(block.to_ruby).to eq("1")
+#     block.append(RubyParser.from_ruby("2"))
+#     expect(block.to_ruby).to eq("1\n2")
+#   end
+# end
