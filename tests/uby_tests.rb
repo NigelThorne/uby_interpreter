@@ -1,5 +1,7 @@
 require "./src/uby_interpreter"
-require "minitest/autorun"
+
+gem 'minitest'
+require 'minitest/autorun'
 
 class TestUbyInterpreter < MiniTest::Test
 	attr_accessor :int

@@ -9,7 +9,7 @@ class UbyInterpreter < SexpInterpreter
     def initialize
         super 
 
-        self.parser = Ruby19Parser.new
+        self.parser = Ruby20Parser.new
         self.env = Environment.new
     end
 
@@ -58,7 +58,7 @@ class UbyInterpreter < SexpInterpreter
         end
     end
 
-    def process_block s
+    def process_block s, scope=nil
         result = nil
         s.rest.each do |sub|
             result = process sub
@@ -100,28 +100,41 @@ class UbyInterpreter < SexpInterpreter
     end
 
 
+
     class Environment    
+
+        class Scope
+            attr_reader :context
+            def initialize c
+                @hash = {}
+                @context = c
+            end            
+            def [] k
+                @hash.fetch(k){ self.context[k] || raise("unknown varaible #{k}") }
+            end
+
+            def []= k,v
+                @hash[k] = v
+            end
+        end
+
         def [] k
-            self.all[k]
+            @scope[k]
         end
 
         def []= k,v
-            @env.last[k] = v
-        end
-
-        def all
-            @env.inject(&:merge)
+            @scope[k] = v
         end
 
         def scope
-            @env.push({})
+            @scope = Scope.new @scope
             yield
         ensure
-            @env.pop
+            @scope = @scope.context
         end
 
         def initialize
-            @env=[{}]
+            @scope = Scope.new nil
         end
     end
 
