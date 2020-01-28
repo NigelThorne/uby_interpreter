@@ -2,5 +2,5 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem "rspec", "~> 2.14.1"
+gem "rspec", "~> 3.9.0"
 gem "ruby_parser"
